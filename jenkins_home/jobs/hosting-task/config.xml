@@ -29,7 +29,7 @@
     <publishers/>
     <buildWrappers>
         <org.jvnet.hudson.plugins.SSHBuildWrapper plugin="ssh@2.4">
-            <siteName>aegir@internal.nucivic.build:22</siteName>
+            <siteName>aegir@devshop.site:22</siteName>
             <preScript>drush @hostmaster hosting-task $TASK_NID</preScript>
             <postScript></postScript>
         </org.jvnet.hudson.plugins.SSHBuildWrapper>
