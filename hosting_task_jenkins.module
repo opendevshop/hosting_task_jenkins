@@ -16,16 +16,20 @@ function hosting_task_jenkins_nodeapi(&$node, $op) {
 
   if ($node->type == 'task' && ($op == 'update' || $op == 'insert')) {
     require_once( __DIR__ .'/vendor/autoload.php');
-    watchdog('debug', t('DEBUG!!! hosting_task_jenkins_nodeapi_task_update() has been called for update or insert'));
-
-    watchdog('debug', t('HOSTING TASK STATUS: ' . $node->task_status));
 
     if ($node->task_status == HOSTING_TASK_QUEUED) {
       $jenkins_url = variable_get('hosting_task_jenkins_url', 'http://localhost:8080/');
       $jenkins = new \JenkinsKhan\Jenkins($jenkins_url);
-      $job = $jenkins->launchJob("hosting-task", array(
-        'TASK_NID' => $node->nid,
-      ));
+
+      try {
+        $job = $jenkins->launchJob("hosting-task", array(
+          'TASK_NID' => $node->nid,
+        ));
+      }
+      catch (RuntimeException $e) {
+        $job = "EXCEPTION: JOB create FAILED: ". $e->getMessage();
+      }
+
       watchdog('debug', t('Hosting Task job sent to jenkins.'));
       watchdog('debug', print_r($job, 1));
     }
