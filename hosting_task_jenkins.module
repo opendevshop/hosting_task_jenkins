@@ -1,11 +1,29 @@
 <?php
 
+
 /**
- * Implements hook_nodeapi_TYPE_OP()
- * @param $node
+ * Implements hook_menu().
  */
-function hosting_task_jenkins_nodeapi_task_insert(&$node) {
-  hosting_task_jenkins_nodeapi_task_update($node);
+function hosting_task_jenkins_menu() {
+  $items['admin/hosting/jenkins'] = array(
+    'title' => 'Jenkins',
+    'description' => 'Configure the Jenkins tasks queue..',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('hosting_task_jenkins_settings_form'),
+    'access arguments' => array('administer hosting jenkins'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'hosting_task_jenkins.admin.inc',
+  );
+  return $items;
+}
+
+/**
+ * Implements hook_perm().
+ */
+function hosting_task_jenkins_perm() {
+  return array(
+    'administer hosting jenkins',
+  );
 }
 
 /**
