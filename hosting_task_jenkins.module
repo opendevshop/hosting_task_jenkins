@@ -46,15 +46,18 @@ function hosting_task_jenkins_node_update($node) {
 
     if ($node->task_status == HOSTING_TASK_QUEUED) {
       $jenkins_url = variable_get('hosting_task_jenkins_url', 'http://localhost:8080/');
-      $jenkins = new \JenkinsKhan\Jenkins($jenkins_url);
+      $jenkins = new JenkinsApi\Jenkins($jenkins_url);
 
       try {
-        $job = $jenkins->launchJob("hosting-task", array(
+        $job = $jenkins->getJob("hosting-task");
+        watchdog('jenkins', 'Hosting Task #@nid job sent to jenkins: !link', array(
+          '@nid' => $node->nid,
+          '@link' => $job->getUrl(),
+        ));
+
+        $job->launch(array(
           'TASK_NID' => $node->nid,
         ));
-        watchdog('jenkins', t('Hosting Task #@nid job sent to jenkins.', array(
-          '@nid' => $node->nid,
-        )));
       }
       catch (RuntimeException $e) {
         watchdog('jenkins', t('Hosting Task #@nid not sent to jenkins: @message', array(
