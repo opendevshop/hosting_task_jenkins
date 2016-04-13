@@ -1,45 +1,42 @@
 [
     {
-        "name": "jenkins-khan/jenkins-api",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
+        "name": "chbiel/jenkins-php-api",
+        "version": "0.1.12",
+        "version_normalized": "0.1.12.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/jenkins-khan/jenkins-php-api.git",
-            "reference": "fd61393afdc18fb9bc6eac34217dafa3b926b984"
+            "url": "https://github.com/chbiel/jenkins-php-api.git",
+            "reference": "310f2056fadda4f3a25187ffbf834ffe65e19aab"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/jenkins-khan/jenkins-php-api/zipball/fd61393afdc18fb9bc6eac34217dafa3b926b984",
-            "reference": "fd61393afdc18fb9bc6eac34217dafa3b926b984",
+            "url": "https://api.github.com/repos/chbiel/jenkins-php-api/zipball/310f2056fadda4f3a25187ffbf834ffe65e19aab",
+            "reference": "310f2056fadda4f3a25187ffbf834ffe65e19aab",
             "shasum": ""
         },
-        "require-dev": {
-            "atoum/atoum": "2.0.1"
+        "require": {
+            "ext-curl": "*",
+            "php": ">=5.4.0"
         },
-        "time": "2015-06-04 06:04:13",
+        "time": "2016-03-18 07:32:48",
         "type": "library",
-        "installation-source": "source",
+        "installation-source": "dist",
         "autoload": {
-            "psr-4": {
-                "JenkinsKhan\\": "src/"
+            "psr-0": {
+                "JenkinsApi": "src/"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
-            "MIT"
+            "proprietary"
         ],
         "authors": [
             {
-                "name": "jenkins-khan",
-                "homepage": "https://github.com/jenkins-khan/jenkins-php-api"
+                "name": "Christopher Biel",
+                "email": "christopher.biel89@gmail.com"
             }
         ],
-        "description": "Jenkins PHP API",
-        "homepage": "https://github.com/jenkins-khan/jenkins-php-api",
-        "keywords": [
-            "api",
-            "jenkins"
-        ]
+        "description": "Library to control Jenkins via PHP through JSON api",
+        "homepage": "https://github.com/chbiel/jenkins-php-api"
     }
 ]

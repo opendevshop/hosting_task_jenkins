@@ -1,5 +1,5 @@
 {
   "require": {
-    "jenkins-khan/jenkins-api": "dev-master"
+    "chbiel/jenkins-php-api": "~0.1"
   }
 }

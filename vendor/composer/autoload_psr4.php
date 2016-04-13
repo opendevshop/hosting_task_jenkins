@@ -6,5 +6,4 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'JenkinsKhan\\' => array($vendorDir . '/jenkins-khan/jenkins-api/src'),
 );

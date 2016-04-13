@@ -6,4 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'JenkinsApi' => array($vendorDir . '/chbiel/jenkins-php-api/src'),
 );
