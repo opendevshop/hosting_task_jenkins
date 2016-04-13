@@ -27,12 +27,21 @@ function hosting_task_jenkins_perm() {
 }
 
 /**
- * Implements hook_nodeapi()
+ * Implements hook_node_insert().
  * @param $node
  */
-function hosting_task_jenkins_nodeapi(&$node, $op) {
+function hosting_task_jenkins_node_insert($node) {
+  hosting_task_jenkins_node_update($node);
+}
 
-  if ($node->type == 'task' && ($op == 'update' || $op == 'insert')) {
+/**
+ * Implements hook_node_update()
+ * @param $node
+ */
+function hosting_task_jenkins_node_update($node) {
+
+  if ($node->type == 'task') {
+
     require_once( __DIR__ .'/vendor/autoload.php');
 
     if ($node->task_status == HOSTING_TASK_QUEUED) {
@@ -43,13 +52,16 @@ function hosting_task_jenkins_nodeapi(&$node, $op) {
         $job = $jenkins->launchJob("hosting-task", array(
           'TASK_NID' => $node->nid,
         ));
+        watchdog('jenkins', t('Hosting Task #@nid job sent to jenkins.', array(
+          '@nid' => $node->nid,
+        )));
       }
       catch (RuntimeException $e) {
-        $job = "EXCEPTION: JOB create FAILED: ". $e->getMessage();
+        watchdog('jenkins', t('Hosting Task #@nid not sent to jenkins: @message', array(
+          '@nid' => $node->nid,
+          '@message' => $e->getMessage(),
+        )));
       }
-
-      watchdog('debug', t('Hosting Task job sent to jenkins.'));
-      watchdog('debug', print_r($job, 1));
     }
   }
 }
